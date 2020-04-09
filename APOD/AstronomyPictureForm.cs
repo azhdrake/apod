@@ -34,7 +34,7 @@ namespace APOD
 
     private void btnGetForDate_Click(object sender, EventArgs e)
     {
-      // Validates date and sends it to the getAPOD method
+      // Gets date and sends it to the getAPOD method
       DateTime date = dtPictureDate.Value;
       GetAPOD(date);
     }
