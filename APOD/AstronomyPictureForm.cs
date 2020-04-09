@@ -17,8 +17,13 @@ namespace APOD
 
     private void Form1_Load(object sender, EventArgs e)
     {
-      DateTime today = DateTime.Today;
-      txtDate.Text = $"{today:d}";
+      // setting up the datetime picker
+      dtPictureDate.Value = DateTime.Today;
+      dtPictureDate.MinDate = new DateTime(1995, 6, 16);
+      dtPictureDate.MaxDate = DateTime.Today;
+
+      
+      
     }
 
     private void btnGetToday_Click(object sender, EventArgs e)
@@ -30,24 +35,8 @@ namespace APOD
     private void btnGetForDate_Click(object sender, EventArgs e)
     {
       // Validates date and sends it to the getAPOD method
-      try
-      {
-        DateTime date = DateTime.Parse(txtDate.Text);
-
-        if (date > DateTime.Today)
-        {
-          throw new FormatException("Date can't be in the future.");
-        }
-        if (date < new DateTime(1995, 06, 16))
-        {
-          throw new FormatException("Date can't be before Jun 16, 1995");
-        }
-        GetAPOD(date);
-      }
-      catch (FormatException err)
-      {
-        MessageBox.Show(err.Message, "Invalid date");
-      }
+      DateTime date = dtPictureDate.Value;
+      GetAPOD(date);
     }
 
     private void GetAPOD(DateTime date)
@@ -147,7 +136,7 @@ namespace APOD
 
       btnGetForDate.Enabled = enable;
       btnGetToday.Enabled = enable;
-      txtDate.Enabled = enable;
+      dtPictureDate.Enabled = enable;
 
       progressBar.Visible = !enable;   // The opposite of whether the buttons are enabled
     }
